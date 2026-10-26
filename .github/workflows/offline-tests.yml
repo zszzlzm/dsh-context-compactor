@@ -16,5 +16,11 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run work-hygiene pure tests
+        run: node --test plugins/dsh-work-hygiene/tests/pure.test.mjs
       - name: Run offline tests
         run: python tests/run_offline.py

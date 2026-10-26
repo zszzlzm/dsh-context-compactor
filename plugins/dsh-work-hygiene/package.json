@@ -1,0 +1,10 @@
+{
+  "name": "@local/dsh-work-hygiene",
+  "version": "0.0.0-m1",
+  "private": true,
+  "type": "module",
+  "description": "Work-hygiene feature pack for DSH: pure deterministic checks for calculation, destructive commands, recovery planning.",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  }
+}

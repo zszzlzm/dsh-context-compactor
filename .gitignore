@@ -32,3 +32,5 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+plugins/dsh-work-hygiene/lib/*.raw.txt
+plugins/dsh-work-hygiene/lib/*.round*.raw.txt
