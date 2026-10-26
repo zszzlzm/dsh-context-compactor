@@ -1,0 +1,40 @@
+- insert:
+    - id: work-hygiene
+      name: '@local/dsh-work-hygiene'
+      config:
+        enabled: true
+        features:
+          calc:
+            enabled: true
+            numToolNames: ['num.py']
+          layout:
+            enabled: true
+            command: ''
+          issues:
+            enabled: true
+            command: ''
+          repro:
+            enabled: true
+            command: ''
+          recovery:
+            enabled: false
+            backupCommand: ''
+            restoreCommand: ''
+          commands:
+            enabled: false
+            mode: warn
+            protectedPaths: []
+          snapshot:
+            enabled: false
+          claims:
+            enabled: false
+          tests:
+            enabled: false
+          protect:
+            enabled: false
+          secrets:
+            enabled: false
+          verify:
+            enabled: false
+          plan:
+            enabled: false

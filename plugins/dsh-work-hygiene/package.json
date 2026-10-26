@@ -1,10 +1,22 @@
 {
   "name": "@local/dsh-work-hygiene",
-  "version": "0.0.0-m1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Work-hygiene feature pack for DSH: pure deterministic checks for calculation, destructive commands, recovery planning.",
-  "scripts": {
-    "test": "node --test tests/*.test.mjs"
+  "description": "DSH Host work-hygiene feature pack: deterministic calculation and destructive-command checks, with recovery/snapshot effects planned by a single pre-execute arbiter.",
+  "exports": {
+    ".": "./index.js",
+    "./lib/*": "./lib/*"
+  },
+  "files": [
+    "index.js",
+    "lib/*.js",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   }
 }
