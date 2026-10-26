@@ -2,6 +2,7 @@ import { normalizeConfig } from './lib/config.js';
 import { createPreExecuteHandler } from './lib/host_preexecute.js';
 import { detectCommands } from './lib/pure.js';
 import { createAuditRecord } from './lib/audit.js';
+import { createSessionHandler } from './lib/session_handler.js';
 
 export const name = '@local/dsh-work-hygiene';
 export const inject = ['tools', 'systemPrompt'];
@@ -49,5 +50,8 @@ export function apply(ctx, config = {}) {
         return r.decision;
       }),
     );
+
+    const onSessionEvent = createSessionHandler({ config: cfg, logger: ctx.logger });
+    ctx.effect(() => ctx.on('session/event', (session, event) => onSessionEvent(session, event)));
   }
 }

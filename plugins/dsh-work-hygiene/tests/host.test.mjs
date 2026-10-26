@@ -50,3 +50,21 @@ test('host: disabled registers nothing', () => {
   assert.equal(ctx.handlers['tools/pre-execute'], undefined)
   assert.equal(ctx.sections.length, 0)
 })
+
+
+test('host: registers session/event and handles turn/end', () => {
+  const ctx = fakeCtx()
+  apply(ctx, {})
+  assert.equal(typeof ctx.handlers['session/event'], 'function')
+  const session = {
+    ownEvents: () => [
+      { type: 'turn/start', seq: 1, data: { turn: 1 } },
+      { type: 'user/message', seq: 2, data: { content: '请算 1+1' } },
+      { type: 'assistant/message', seq: 3, data: { message: { content: [{ type: 'text', text: '1+1=2' }] } } },
+      { type: 'turn/end', seq: 4, data: { turn: 1 } },
+    ],
+  }
+  const r = ctx.handlers['session/event'](session, { type: 'turn/end', data: { turn: 1 } })
+  assert.equal(r.turn, 1)
+  assert.ok(ctx.logs.length >= 1)
+})

@@ -31,6 +31,8 @@ jobs:
           plugins/dsh-work-hygiene/tests/audit.test.mjs
           plugins/dsh-work-hygiene/tests/host.test.mjs
           plugins/dsh-work-hygiene/tests/turn_checks.test.mjs
+          plugins/dsh-work-hygiene/tests/session_turn.test.mjs
+          plugins/dsh-work-hygiene/tests/session_handler.test.mjs
           plugins/dsh-work-hygiene/tests/local_model.test.mjs
       - name: Run offline tests
         run: python tests/run_offline.py
