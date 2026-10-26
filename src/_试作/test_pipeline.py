@@ -118,6 +118,7 @@ def redirect(tmp: pathlib.Path) -> None:
     cc.JOB_STATUS_PATH = tmp / "compact.job.json"
     cc.PENDING_PATH = tmp / "compact.pending.json"
     cc.chat = fake_chat
+    cc.ensure_service = lambda **kw: True  # CI 无 Ollama：预检直接放行
     # GPU 预检依赖真实环境，测试里默认放行；P-071 有专门用例直接测判定函数
     cc.gpu_status = lambda: {"loaded": True, "vram_share": 1.0, "vram_free_mb": 20000,
                              "vram_total_mb": 16303, "comfyui": False, "models": []}
