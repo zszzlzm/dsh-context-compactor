@@ -218,7 +218,11 @@ def main(argv: list[str] | None = None) -> int:
         else:
             case("收尾轮不足 2（跳过冷启动/增量分支断言）", True, f"轮次={turns}")
 
-        # dry-run 不写盘
+        # dry-run 不写盘（无历史状态时先落空状态/游标，保证 CI 可重复）
+        if not state_path.exists():
+            state_path.write_text(json.dumps(cc.EMPTY_STATE, ensure_ascii=False), encoding="utf-8")
+        if not cursor_path.exists():
+            cursor_path.write_text(json.dumps({"last_seq": 0, "turn": 0}, ensure_ascii=False), encoding="utf-8")
         state_before = state_path.read_text(encoding="utf-8")
         cursor_before = cursor_path.read_text(encoding="utf-8")
         code = run(["--last-turns", "1", "--dry-run"])
