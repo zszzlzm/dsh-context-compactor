@@ -6,6 +6,12 @@ import pathlib
 import subprocess
 import sys
 
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 PY = sys.executable
 HERE = ROOT / "src" / "_试作"
