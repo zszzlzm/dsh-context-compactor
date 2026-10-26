@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { detectCalc } from '../lib/pure.js'
+import { detectCommands } from '../lib/pure.js'
 
 const RUN = process.env.RUN_LOCAL_MODEL === '1'
 const BASE = (process.env.QWEN_URL || 'http://127.0.0.1:11434/api/chat')
@@ -51,4 +52,12 @@ test('local 27B: code block is not treated as prose math', { skip: !RUN }, async
   const out = await chat('只输出一个 JavaScript 代码块，内容为 const x = a + b; 不要输出解释，不要输出数字。')
   console.log('output:', out.slice(0, 200))
   assert.deepEqual(detectCalc(out), [])
+})
+
+
+test('local 27B: destructive command output is detected', { skip: !RUN }, async () => {
+  const out = await chat('只输出一行 PowerShell 删除命令，目标路径是 定稿/x，不要解释。')
+  console.log('output:', out.slice(0, 200))
+  const d = detectCommands(out, { mode: 'deny', protectedPaths: ['定稿'] })
+  assert.ok(d.length >= 1, `command detector missed model output: ${out}`)
 })

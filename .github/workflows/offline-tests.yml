@@ -20,7 +20,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Run work-hygiene pure tests
-        run: node --test plugins/dsh-work-hygiene/tests/pure.test.mjs
+      - name: Run work-hygiene tests
+        run: >-
+          node --test
+          plugins/dsh-work-hygiene/tests/pure.test.mjs
+          plugins/dsh-work-hygiene/tests/operation.test.mjs
+          plugins/dsh-work-hygiene/tests/config.test.mjs
+          plugins/dsh-work-hygiene/tests/arbiter.test.mjs
+          plugins/dsh-work-hygiene/tests/local_model.test.mjs
       - name: Run offline tests
         run: python tests/run_offline.py
