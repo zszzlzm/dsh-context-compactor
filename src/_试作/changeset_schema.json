@@ -1,0 +1,91 @@
+{
+  "type": "object",
+  "properties": {
+    "目标": {
+      "type": "object",
+      "properties": {
+        "值": {"type": "string"},
+        "变更": {"type": "string"}
+      },
+      "required": ["值", "变更"],
+      "additionalProperties": false
+    },
+    "待办": {
+      "type": "object",
+      "properties": {
+        "完成": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "idx": {"type": "integer"},
+              "expect": {"type": "string"}
+            },
+            "required": ["idx", "expect"],
+            "additionalProperties": false
+          }
+        },
+        "作废": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "idx": {"type": "integer"},
+              "expect": {"type": "string"}
+            },
+            "required": ["idx", "expect"],
+            "additionalProperties": false
+          }
+        },
+        "新增": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "红线": {
+      "type": "object",
+      "properties": {
+        "新增": {"type": "array", "items": {"type": "string"}},
+        "作废": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "决定": {
+      "type": "object",
+      "properties": {
+        "新增": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "内容": {"type": "string"},
+              "理由": {"type": "string"}
+            },
+            "required": ["内容", "理由"],
+            "additionalProperties": false
+          }
+        },
+        "作废": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "内容": {"type": "string"},
+              "因为": {"type": "string"}
+            },
+            "required": ["内容", "因为"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "锚点": {
+      "type": "object",
+      "properties": {
+        "新增": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,6 @@
+# Runtime dependencies
+filelock>=3.13
+zstandard>=0.22
+simpleeval>=1.0
+pint>=0.24
+python-dateutil>=2.9

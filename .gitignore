@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Runtime output / private content
+02_文档/会话状态/
+06_日志/
+07_备份/
+03_数据/
+05_模型/
+01_正文/
+画库/
+素材库/
+.dsh-im/
+*.zstd
+*.log
+*.raw.txt
+*.raw.json
+*.blocks.jsonl
+*.changes.json
+*.round*.raw.txt
+
+# Secrets / local config
+.env
+.env.*
+*.key
+*.pem
+
+# OS
+.DS_Store
+Thumbs.db

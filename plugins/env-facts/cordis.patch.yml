@@ -1,0 +1,4 @@
+- insert:
+    - id: env-facts
+      name: '@local/env-facts'
+      config: {}

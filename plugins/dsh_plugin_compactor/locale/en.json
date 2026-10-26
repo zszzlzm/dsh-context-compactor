@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Per-turn Compactor",
+    "description": "Runs the workspace's Python context compactor after each turn and injects its structured state into the agent context."
+  }
+}

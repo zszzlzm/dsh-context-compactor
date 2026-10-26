@@ -1,0 +1,19 @@
+- insert:
+    - id: compactor-state
+      name: '@local/dsh-compactor-state'
+      config:
+        enabled: true
+        projects:
+          - '/path/to/your/workspace'
+        python: '.venv\Scripts\pythonw.exe'
+        driver: 'src\_试作\compact_context.py'
+        stateFile: '02_文档\会话状态\状态.json'
+        model: 'qwen3.8:27b-mtp-q4_K_M'
+        baseUrl: 'http://127.0.0.1:11434/api/chat'
+        syncBudget: 60
+        background: true
+        injectState: true
+        skipSubagents: true
+        delayMs: 3000
+        contextOrder: 1000
+        maxStateChars: 8000

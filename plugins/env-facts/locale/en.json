@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Environment Facts",
+    "description": "Adds a structured <env> fact block with an as-of timestamp to the runtime-context snapshot."
+  }
+}
