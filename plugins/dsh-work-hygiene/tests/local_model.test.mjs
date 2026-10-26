@@ -4,6 +4,7 @@ import { detectCalc } from '../lib/pure.js'
 import { detectCommands } from '../lib/pure.js'
 import { createPreExecuteHandler } from '../lib/host_preexecute.js'
 import { normalizeConfig } from '../lib/config.js'
+import { checkTurn } from '../lib/turn_checks.js'
 
 const RUN = process.env.RUN_LOCAL_MODEL === '1'
 const BASE = (process.env.QWEN_URL || 'http://127.0.0.1:11434/api/chat')
@@ -74,4 +75,18 @@ test('local 27B: destructive command through host handler is denied', { skip: !R
   const r = await h({ name: 'pwsh', arguments: { command: out } }, async () => ({ kind: 'allow' }))
   console.log('output:', out.slice(0, 200), 'decision:', r.decision.kind)
   assert.equal(r.decision.kind, 'deny')
+})
+
+
+test('local 27B: arithmetic through turn check warns', { skip: !RUN }, async () => {
+  const out = await chat('只输出计算过程和最终结果，不要使用任何工具，不要解释：37 乘以 4.8 再加 6% 等于多少？')
+  const events = [
+    { type: 'turn/start', data: { turn: 1 } },
+    { type: 'user/message', data: { content: '请计算 37 乘以 4.8 再加 6%' } },
+    { type: 'assistant/message', data: { message: { content: [{ type: 'text', text: out }] } } },
+    { type: 'turn/end', data: { turn: 1 } },
+  ]
+  const d = checkTurn(events, normalizeConfig())
+  console.log('output:', out.slice(0, 200), 'decisions:', d.length)
+  assert.ok(d.length >= 1, `turn check missed model output: ${out}`)
 })

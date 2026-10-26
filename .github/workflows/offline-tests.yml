@@ -30,6 +30,7 @@ jobs:
           plugins/dsh-work-hygiene/tests/host_preexecute.test.mjs
           plugins/dsh-work-hygiene/tests/audit.test.mjs
           plugins/dsh-work-hygiene/tests/host.test.mjs
+          plugins/dsh-work-hygiene/tests/turn_checks.test.mjs
           plugins/dsh-work-hygiene/tests/local_model.test.mjs
       - name: Run offline tests
         run: python tests/run_offline.py
