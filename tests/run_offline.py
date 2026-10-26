@@ -46,6 +46,6 @@ for name, extra in CASES:
     print(f"[{'PASS' if ok else 'FAIL'}] {name} rc={done.returncode}")
     if not ok:
         tail = (done.stdout or "") + (done.stderr or "")
-        print("\n".join(tail.splitlines()[-12:]))
+        print(tail)
 print(f"\n{len(CASES) - failed} passed / {failed} failed")
 raise SystemExit(0 if failed == 0 else 1)
