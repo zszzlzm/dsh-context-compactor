@@ -34,6 +34,12 @@ sys.path.insert(0, str(HERE.parent))
 
 import compact_context as cc  # noqa: E402
 from fixture_pipeline_v1 import EVENTS as SYNTHETIC_EVENTS  # noqa: E402
+
+# 无 DSH 会话的 CI 环境：模块加载时生成一份合成会话，默认所有 run() 都钉住它
+_SYNTHETIC_HOME = pathlib.Path(tempfile.mkdtemp(prefix="compact_pipeline_"))
+SYNTHETIC_SESSION_PATH = _SYNTHETIC_HOME / "synthetic_session.v4.jsonl.zstd"
+SYNTHETIC_SESSION_PATH.write_bytes(zstandard.ZstdCompressor().compress(
+    "\n".join(json.dumps(e, ensure_ascii=False) for e in SYNTHETIC_EVENTS).encode("utf-8")))
 from l4_v3_27b import state_hash, validate_state  # noqa: E402
 from qwen_client import QwenError  # noqa: E402
 
@@ -136,7 +142,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--session", default="", help="固定会话日志（默认最新会话，不稳定；P-067）")
     args = ap.parse_args(argv)
-    SESSION_ARG = ["--session", args.session] if args.session else []
+    SESSION_ARG = ["--session", args.session or str(SYNTHETIC_SESSION_PATH)]
 
     real_state = pathlib.Path(cc.ROOT) / "02_文档" / "会话状态" / "状态.json"
     real_before = digest(real_state)
